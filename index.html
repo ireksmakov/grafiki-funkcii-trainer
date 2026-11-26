@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Графики и функции — тренажёр ОГЭ / ЕГЭ</title>
+<style>
+:root{
+  --bg:#eef8fc;--bg2:#f8fcfe;--card:#fff;--navy:#0c355f;--blue:#1578c9;--cyan:#27b4d8;
+  --line:#cfe3ee;--soft:#e8f5fb;--soft2:#f2f9fc;--text:#17324b;--muted:#648096;
+  --green:#159a67;--red:#d64c55;--amber:#e59a2f;--shadow:0 18px 55px rgba(32,88,120,.12)
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text);background:
+linear-gradient(rgba(255,255,255,.62),rgba(255,255,255,.62)),repeating-linear-gradient(0deg,transparent 0 31px,rgba(53,144,188,.08) 31px 32px),repeating-linear-gradient(90deg,transparent 0 31px,rgba(53,144,188,.08) 31px 32px),var(--bg);min-height:100vh}
+button,select,input{font:inherit}.app{width:min(1500px,100%);margin:auto;min-height:100vh}.hero{padding:26px clamp(16px,4vw,48px) 18px;background:linear-gradient(135deg,#e8f8ff 0%,#f7fcff 55%,#edf8ff 100%);border-bottom:1px solid var(--line)}
+.hero-top{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{display:flex;gap:14px;align-items:center}.logo{width:58px;height:58px;border-radius:18px;background:linear-gradient(145deg,var(--blue),var(--cyan));box-shadow:0 10px 25px rgba(21,120,201,.23);display:grid;place-items:center;color:#fff;font-size:28px;font-weight:900}.hero h1{margin:0;color:var(--navy);font-size:clamp(28px,4.4vw,56px);line-height:1;font-weight:950;letter-spacing:-1px}.hero p{margin:10px 0 0;color:#3c6c8b;font-weight:700;font-size:clamp(14px,1.5vw,18px)}
+.exam-switch{display:flex;background:#fff;padding:6px;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 25px rgba(30,90,120,.08)}.exam-btn{border:0;background:transparent;color:var(--navy);padding:11px 18px;border-radius:12px;font-weight:900;cursor:pointer}.exam-btn.active{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff}.exam-btn.locked{opacity:.55}
+.layout{display:grid;grid-template-columns:330px minmax(0,1fr);gap:20px;padding:20px clamp(12px,3vw,34px) 40px}.side,.card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}.side{padding:18px;align-self:start;position:sticky;top:12px}.side h2{margin:0 0 14px;color:var(--navy);font-size:21px}.menu{display:grid;gap:8px}.menu-btn{width:100%;border:1px solid #d6e8f0;background:var(--soft2);color:var(--navy);padding:12px 13px;border-radius:14px;text-align:left;font-weight:800;cursor:pointer;transition:.18s}.menu-btn:hover{transform:translateY(-1px);border-color:#9ed2e8}.menu-btn.active{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border-color:transparent}.sep{height:1px;background:var(--line);margin:16px 0}.control{display:grid;gap:7px;margin:11px 0}.control label{font-size:13px;font-weight:900;color:var(--navy)}select,input[type=text],input[type=number]{width:100%;border:1px solid #c9dce6;border-radius:13px;padding:11px 12px;background:#fff;color:var(--text);outline:none;font-weight:700}select:focus,input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(21,120,201,.10)}.primary,.secondary,.ghost,.danger{border:0;border-radius:14px;padding:12px 16px;font-weight:900;cursor:pointer;transition:.18s}.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff}.secondary{background:#e9f4fb;color:var(--navy);border:1px solid #cfe3ee}.ghost{background:#fff;color:var(--blue);border:1px solid #bddbea}.danger{background:#fff1f2;color:#b73d49;border:1px solid #f1c7cc}.primary:hover,.secondary:hover,.ghost:hover{transform:translateY(-1px)}button:disabled{opacity:.45;cursor:not-allowed;transform:none!important}.full{width:100%}.side-note{font-size:12px;line-height:1.45;color:var(--muted);background:#f3f9fc;border:1px dashed #bddbe9;padding:10px 12px;border-radius:13px}
+.main{display:grid;gap:18px}.card{padding:clamp(16px,2vw,24px)}.topbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}.topbar h2{margin:0;color:var(--navy);font-size:clamp(22px,2.5vw,34px)}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{padding:8px 11px;border-radius:999px;background:#eaf5fb;color:#185e91;border:1px solid #d2e9f4;font-size:13px;font-weight:900}.badge.hard{background:#fff3e6;color:#9c5d10;border-color:#f4d3ab}.badge.oge{background:#e8fbf5;color:#147052;border-color:#bde9d8}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}.stat{background:linear-gradient(180deg,#f9fdff,#f3f9fc);border:1px solid #d9eaf2;border-radius:17px;padding:12px;text-align:center}.stat span{display:block;font-size:12px;color:var(--muted);font-weight:800}.stat strong{display:block;margin-top:3px;color:var(--navy);font-size:25px}.progress{height:9px;background:#e7f1f6;border-radius:999px;overflow:hidden;margin-top:14px}.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:.3s}
+.training-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.7fr);gap:18px;margin-top:18px}.task-panel,.assist-panel{border:1px solid #d7e8f1;border-radius:20px;background:#fbfeff;padding:18px}.task-kicker{color:var(--blue);font-size:13px;font-weight:950;text-transform:uppercase;letter-spacing:.7px}.task-title{font-size:clamp(20px,2.2vw,29px);font-weight:950;color:var(--navy);margin:7px 0 14px}.formula{font-family:"Cambria Math","Times New Roman",serif;font-size:clamp(22px,3vw,34px);font-weight:700;color:#102c46;background:#fff;border:1px solid #d8e8f0;border-radius:15px;padding:12px 14px;text-align:center;margin-bottom:14px}.canvas-wrap{background:white;border:1px solid #cfe3ed;border-radius:18px;padding:10px;overflow:hidden}.canvas-wrap canvas{width:100%;height:auto;display:block;aspect-ratio:1.55/1}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:15px}.option{border:1px solid #c9dce6;background:#fff;border-radius:14px;padding:12px;text-align:left;color:var(--text);font-weight:800;cursor:pointer;min-height:48px}.option:hover{border-color:#79bfe0;background:#f5fbfe}.option.selected{border:2px solid var(--blue);background:#eaf6fc}.option.correct{border-color:#5ac297;background:#eafaf3;color:#116a4a}.option.wrong{border-color:#ef9aa2;background:#fff0f1;color:#a52b37}.answer-input{display:flex;gap:10px;margin-top:15px}.answer-input input{flex:1;font-size:18px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.feedback{display:none;margin-top:13px;padding:12px 14px;border-radius:14px;font-weight:850;line-height:1.45}.feedback.show{display:block}.feedback.ok{background:#e9faf2;border:1px solid #a7dec7;color:#176c4e}.feedback.bad{background:#fff0f1;border:1px solid #efbcc1;color:#9c3440}.feedback.warn{background:#fff7e8;border:1px solid #f3d59e;color:#8b5b12}.solution{display:none;margin-top:12px;border:1px dashed #91bfd3;background:#f4fbfe;border-radius:15px;padding:14px;line-height:1.6}.solution.show{display:block}.solution b{color:var(--navy)}
+.assist-panel h3{margin:0 0 12px;color:var(--navy)}.assist-list{display:grid;gap:10px}.assist-item{padding:11px 12px;background:#fff;border:1px solid #dbeaf1;border-radius:14px}.assist-item b{display:block;color:var(--navy);margin-bottom:4px}.assist-item p{margin:0;color:#4f7086;font-size:13px;line-height:1.45}.mini-progress{display:grid;gap:8px}.mini-row{display:grid;grid-template-columns:110px 1fr 38px;gap:8px;align-items:center;font-size:12px;font-weight:800}.bar{height:8px;background:#e7f0f5;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.theory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.theory-card{border:1px solid #d8e8f0;border-radius:18px;background:#fbfeff;padding:16px}.theory-card h3{margin:0 0 10px;color:var(--navy)}.theory-card p,.theory-card li{line-height:1.55;color:#3f6279}.theory-card ul,.theory-card ol{padding-left:20px;margin:8px 0}.mathbox{font-family:"Cambria Math","Times New Roman",serif;background:#eef8fc;border-left:4px solid var(--cyan);padding:10px 12px;border-radius:10px;margin:10px 0;font-size:18px}.theory-nav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.pill{border:1px solid #cce1eb;background:#fff;color:var(--navy);border-radius:999px;padding:8px 12px;font-weight:850;cursor:pointer}.pill.active{background:var(--navy);color:#fff}.callout{background:linear-gradient(135deg,#e8f8ff,#f7fcff);border:1px solid #cfe7f2;border-radius:16px;padding:13px 14px;color:#285c7d;line-height:1.5}.source-note{font-size:12px;color:var(--muted);margin-top:10px}
+.exam-card{display:grid;grid-template-columns:1fr 280px;gap:16px}.exam-info{padding:18px;border:1px solid #d8e8f0;border-radius:18px;background:#fbfeff}.exam-info h3{margin-top:0;color:var(--navy)}.timer{font-size:32px;font-weight:950;color:var(--navy);text-align:center;padding:18px;background:#eef8fc;border-radius:18px;border:1px solid #d5e8f1}.history{width:100%;border-collapse:collapse;font-size:13px}.history th,.history td{padding:9px;border-bottom:1px solid #e2edf2;text-align:left}.history th{color:var(--navy);background:#f2f9fc}.empty{padding:25px;text-align:center;color:var(--muted)}
+.ege-placeholder{padding:34px;border:1px dashed #a9cddd;border-radius:20px;background:#f8fcfe;text-align:center}.ege-placeholder h3{font-size:28px;color:var(--navy);margin:0 0 10px}.ege-placeholder p{max-width:650px;margin:auto;line-height:1.6;color:#55778c}
+.footer{padding:18px;text-align:center;color:#50758d;font-size:13px}.mobile-topic{display:none}.hidden{display:none!important}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.side{position:static}.menu{grid-template-columns:repeat(2,minmax(0,1fr))}.training-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.exam-card{grid-template-columns:1fr}}
+@media(max-width:700px){.hero{padding-top:18px}.hero-top{align-items:flex-start}.logo{width:48px;height:48px;border-radius:15px}.exam-switch{width:100%}.exam-btn{flex:1}.layout{padding:12px 10px 28px}.side{padding:14px;border-radius:18px}.menu{display:none}.mobile-topic{display:block}.theory-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.options{grid-template-columns:1fr}.answer-input{flex-direction:column}.task-panel,.assist-panel{padding:14px}.card{border-radius:18px;padding:14px}.formula{font-size:24px}.mini-row{grid-template-columns:95px 1fr 35px}.hero h1{letter-spacing:-.5px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="hero">
+  <div class="hero-top">
+    <div class="brand"><div class="logo">ƒ</div><div><h1>Графики и функции</h1><p>Интерактивный тренажёр • ОГЭ сейчас • ЕГЭ профиль — следующий этап</p></div></div>
+    <div class="exam-switch" aria-label="Выбор экзамена"><button class="exam-btn active" data-exam="oge">ОГЭ</button><button class="exam-btn locked" data-exam="ege">ЕГЭ профиль</button></div>
+  </div>
+</header>
+<div class="layout">
+<aside class="side">
+  <h2>Разделы ОГЭ</h2>
+  <select id="mobileTopic" class="mobile-topic" aria-label="Выбор раздела">
+    <option value="trainer">Тренажёр</option><option value="theory">Теория</option><option value="exam">Мини-экзамен</option><option value="progress">Мой прогресс</option>
+  </select>
+  <div class="menu" id="sideMenu">
+    <button class="menu-btn active" data-view="trainer">⚡ Тренажёр</button>
+    <button class="menu-btn" data-view="theory">📘 Теория</button>
+    <button class="menu-btn" data-view="exam">📝 Мини-экзамен</button>
+    <button class="menu-btn" data-view="progress">📊 Мой прогресс</button>
+  </div>
+  <div class="sep"></div>
+  <div id="trainerControls">
+    <div class="control"><label for="topicSelect">Тема</label><select id="topicSelect">
+      <option value="mixed">Все темы вперемешку</option>
+      <option value="read">ОГЭ №11: чтение графиков</option>
+      <option value="line">Линейная функция</option>
+      <option value="quadratic">Квадратичная функция</option>
+      <option value="rational">Дробно-рациональная функция</option>
+      <option value="module">Функции с модулем</option>
+      <option value="task22">ОГЭ №22: построение и анализ</option>
+    </select></div>
+    <div class="control"><label for="difficulty">Сложность</label><select id="difficulty"><option value="easy">Базовый</option><option value="medium" selected>Средний</option><option value="hard">Продвинутый</option></select></div>
+    <div class="control"><label for="seriesCount">Заданий в серии</label><select id="seriesCount"><option>5</option><option selected>10</option><option>15</option><option>20</option></select></div>
+    <button class="primary full" id="newSeries">Начать новую серию</button>
+    <div class="sep"></div>
+  </div>
+  <div class="side-note"><b>Работает локально.</b><br>Все графики рисуются внутри браузера, результаты сохраняются на этом устройстве. Внешние библиотеки не используются.</div>
+</aside>
+<main class="main">
+<section class="card" id="ogeView">
+  <div id="trainerView">
+    <div class="topbar"><div><h2>Тренажёр по графикам</h2><div class="badges"><span class="badge oge">ОГЭ</span><span class="badge" id="topicBadge">Все темы</span><span class="badge hard" id="diffBadge">Средний</span></div></div><span class="badge" id="taskCounter">Задание 1 из 10</span></div>
+    <div class="stats"><div class="stat"><span>Решено</span><strong id="statDone">0</strong></div><div class="stat"><span>Верно</span><strong id="statRight">0</strong></div><div class="stat"><span>Ошибки</span><strong id="statWrong">0</strong></div><div class="stat"><span>Точность</span><strong id="statAccuracy">0%</strong></div><div class="stat"><span>Серия</span><strong id="statStreak">0</strong></div></div>
+    <div class="progress"><div id="seriesProgress"></div></div>
+    <div class="training-grid">
+      <div class="task-panel">
+        <div class="task-kicker" id="taskKicker">ОГЭ • графики</div>
+        <div class="task-title" id="taskTitle">Определите ответ по графику</div>
+        <div class="formula" id="taskFormula"></div>
+        <div class="canvas-wrap" id="graphWrap"><canvas id="graphCanvas" width="760" height="490"></canvas></div>
+        <div id="options" class="options"></div>
+        <div id="inputBox" class="answer-input hidden"><input id="freeAnswer" type="text" placeholder="Введите ответ"><button class="primary" id="inputCheck">Проверить</button></div>
+        <div class="actions"><button class="primary" id="checkBtn">Проверить</button><button class="secondary" id="hintBtn">Подсказка</button><button class="secondary" id="solutionBtn" disabled>Показать решение</button><button class="ghost" id="prevBtn">← Назад</button><button class="ghost" id="nextBtn">Вперёд →</button></div>
+        <div id="feedback" class="feedback"></div><div id="solution" class="solution"></div>
+      </div>
+      <aside class="assist-panel"><h3>Навигатор решения</h3><div class="assist-list" id="assistList"></div><div class="sep"></div><h3>Прогресс по темам</h3><div class="mini-progress" id="topicProgress"></div></aside>
+    </div>
+  </div>
+
+  <div id="theoryView" class="hidden">
+    <div class="topbar"><h2>Краткая теория ОГЭ</h2><span class="badge oge">с примерами и алгоритмами</span></div>
+    <div class="theory-nav" id="theoryNav"></div><div id="theoryContent"></div>
+  </div>
+
+  <div id="examView" class="hidden">
+    <div class="topbar"><h2>Мини-экзамен ОГЭ</h2><span class="badge">10 смешанных заданий</span></div>
+    <div class="exam-card"><div class="exam-info"><h3>Режим без подсказок</h3><p>Задания формируются из тем №11 и №22. После ответа показывается только результат. Разбор доступен после завершения мини-экзамена.</p><ul><li>10 заданий;</li><li>темы перемешиваются;</li><li>оценивается точность и время;</li><li>результат сохраняется в прогрессе.</li></ul><button class="primary" id="startExam">Начать мини-экзамен</button></div><div><div class="timer" id="timer">15:00</div><div class="side-note" style="margin-top:10px">Таймер запускается при начале. Это тренировочный режим, а не официальный регламент экзамена.</div></div></div>
+  </div>
+
+  <div id="progressView" class="hidden">
+    <div class="topbar"><h2>Мой прогресс</h2><button class="danger" id="resetProgress">Сбросить статистику</button></div>
+    <div class="stats"><div class="stat"><span>Всего попыток</span><strong id="pAttempts">0</strong></div><div class="stat"><span>Верных ответов</span><strong id="pRight">0</strong></div><div class="stat"><span>Общая точность</span><strong id="pAccuracy">0%</strong></div><div class="stat"><span>Лучшая серия</span><strong id="pBest">0</strong></div><div class="stat"><span>Мини-экзамены</span><strong id="pExams">0</strong></div></div>
+    <h3 style="color:var(--navy);margin-top:22px">История мини-экзаменов</h3><div style="overflow:auto"><table class="history"><thead><tr><th>Дата</th><th>Результат</th><th>Точность</th><th>Время</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+  </div>
+</section>
+<section class="card hidden" id="egeView"><div class="ege-placeholder"><h3>ЕГЭ профиль — раздел подготовлен</h3><p>Структура уже заложена отдельно от ОГЭ. На следующем этапе сюда можно добавить исследование функций, производную, касательные, параметры, графический метод и задания профильного ЕГЭ. Сейчас теория и база заданий заполняются только для ОГЭ, как вы просили.</p></div></section>
+</main>
+</div>
+<footer class="footer">Графики и функции • образовательный тренажёр • данные прогресса хранятся только в браузере пользователя</footer>
+</div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const TOPIC_NAMES={mixed:'Все темы',read:'ОГЭ №11',line:'Линейная функция',quadratic:'Квадратичная функция',rational:'Дробно-рациональная',module:'Модуль',task22:'ОГЭ №22'};
+const DIFF_NAMES={easy:'Базовый',medium:'Средний',hard:'Продвинутый'};
+const topicKeys=['read','line','quadratic','rational','module','task22'];
+const defaultProgress={attempts:0,right:0,bestStreak:0,topics:{},exams:[]};
+let saved=loadProgress();
+let state={topic:'mixed',difficulty:'medium',total:10,index:0,right:0,wrong:0,streak:0,tasks:[],selected:null,attemptsCurrent:0,exam:false,examStart:0,timerId:null};
+function loadProgress(){try{return Object.assign({},defaultProgress,JSON.parse(localStorage.getItem('graphsTrainerProgress')||'{}'))}catch(e){return structuredClone(defaultProgress)}}
+function saveProgress(){localStorage.setItem('graphsTrainerProgress',JSON.stringify(saved))}
+function rint(a,b){return Math.floor(Math.random()*(b-a+1))+a} function pick(a){return a[Math.floor(Math.random()*a.length)]} function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function fmt(n){return Number.isInteger(n)?String(n):String(Math.round(n*100)/100).replace('.',',')}
+function signs(a,b,n1='a',n2='c'){return `${n1} ${a>0?'&gt;':'&lt;'} 0, ${n2} ${b>0?'&gt;':'&lt;'} 0`}
+function addTopicStat(t,ok){saved.topics[t]??={attempts:0,right:0};saved.topics[t].attempts++;if(ok)saved.topics[t].right++}
+function record(ok,topic){saved.attempts++;if(ok)saved.right++;saved.bestStreak=Math.max(saved.bestStreak,state.streak);addTopicStat(topic,ok);saveProgress()}
+function makeGraph(kind,p={}){return {kind,...p}}
+function taskBase(topic,title,formula,graph,options,correct,explanation,hint,input=null){return {topic,title,formula,graph,options,correct,explanation,hint,input,done:false,tries:0}}
+function genLine(diff){
+ const k=pick([-2,-1.5,-1,.5,1,2]), b=pick([-4,-3,-2,2,3,4]);
+ if(diff==='easy'){
+  const opts=shuffle([signs(1,1,'k','b'),signs(1,-1,'k','b'),signs(-1,1,'k','b'),signs(-1,-1,'k','b')]); const ans=signs(k,b,'k','b');
+  return taskBase('line','Определите знаки коэффициентов k и b','y = kx + b',makeGraph('line',{k,b}),opts,opts.indexOf(ans),`У линейной функции y=kx+b знак k показывает направление прямой: k>0 — возрастает, k<0 — убывает. Число b — ордината точки пересечения с осью Oy. Здесь k=${fmt(k)}, b=${fmt(b)}, поэтому ${ans.replaceAll('&gt;','>').replaceAll('&lt;','<')}.`,'Сначала посмотрите, возрастает или убывает прямая. Затем найдите, выше или ниже нуля она пересекает Oy.');
+ }
+ const wrong=[`y = ${fmt(-k)}x ${b>=0?'+':'−'} ${fmt(Math.abs(b))}`,`y = ${fmt(k)}x ${b>=0?'−':'+'} ${fmt(Math.abs(b))}`,`y = ${fmt(-k)}x ${b>=0?'−':'+'} ${fmt(Math.abs(b))}`];
+ const correct=`y = ${fmt(k)}x ${b>=0?'+':'−'} ${fmt(Math.abs(b))}`;const opts=shuffle([correct,...wrong]);
+ return taskBase('line','Выберите формулу изображённой прямой','',makeGraph('line',{k,b}),opts,opts.indexOf(correct),`По графику определяем знак k и точку пересечения с Oy: b=${fmt(b)}. Наклон соответствует k=${fmt(k)}. Поэтому формула: ${correct}.`,'Найдите b по пересечению с вертикальной осью, затем оцените знак и крутизну k.');
+}
+function genQuadratic(diff){
+ const a=pick([-1,1]), h=rint(-2,2), c0=pick([-3,-2,2,3]); const b=-2*a*h, c=a*h*h+c0;
+ if(diff==='easy'){
+  const ans=signs(a,c);const opts=shuffle([signs(1,1),signs(1,-1),signs(-1,1),signs(-1,-1)]);
+  return taskBase('quadratic','Определите знаки коэффициентов a и c','y = ax² + bx + c',makeGraph('quad',{a,b,c}),opts,opts.indexOf(ans),`Ветви ${a>0?'направлены вверх, значит a>0':'направлены вниз, значит a<0'}. Значение c=f(0) видно по пересечению с Oy: c=${fmt(c)}, поэтому ${c>0?'c>0':'c<0'}.`,'Сначала смотрите направление ветвей параболы. Затем — где график пересекает Oy.');
+ }
+ if(diff==='medium'){
+  const correct=String(h);const opts=shuffle([...new Set([h,h+1,h-1,-h])]).map(String);while(opts.length<4)opts.push(String(rint(-5,5)));
+  return taskBase('quadratic','Найдите абсциссу вершины параболы','',makeGraph('quad',{a,b,c}),opts.slice(0,4),opts.slice(0,4).indexOf(correct),`Абсцисса вершины x₀ = −b/(2a). Здесь a=${a}, b=${b}: x₀ = −(${b})/(2·${a}) = ${h}.`,'Вершина — самая высокая или самая низкая точка параболы. Можно считать её по клеткам или использовать x₀=−b/(2a).');
+ }
+ const D=b*b-4*a*c;const correct=D>0?'D > 0':D===0?'D = 0':'D < 0';const opts=['D > 0','D = 0','D < 0','Нельзя определить'];
+ return taskBase('quadratic','Определите знак дискриминанта по графику','y = ax² + bx + c',makeGraph('quad',{a,b,c}),opts,opts.indexOf(correct),`Знак D определяется числом пересечений параболы с Ox: два корня → D>0, касание → D=0, пересечений нет → D<0. Для данного графика: ${correct}.`,'Посчитайте количество общих точек параболы с осью Ox.');
+}
+function genRational(diff){
+ const k=pick([-8,-4,-2,2,4,8]);
+ if(diff==='easy'){
+  const correct=k>0?'I и III четверти':'II и IV четверти';const opts=['I и III четверти','II и IV четверти','I и II четверти','III и IV четверти'];
+  return taskBase('rational','В каких четвертях расположены ветви гиперболы?','y = k/x',makeGraph('hyper',{k}),opts,opts.indexOf(correct),`Для y=k/x: при k>0 ветви расположены в I и III четвертях, при k<0 — во II и IV. Здесь k=${k}, поэтому ${correct}.`,'Определите знак произведения x·y на ветвях графика.');
+ }
+ const correct=`y = ${k}/x`;const opts=shuffle([correct,`y = ${-k}/x`,`y = ${Math.sign(k)}/(${Math.abs(k)}x)`,`y = ${k}x`]);
+ return taskBase('rational','Выберите формулу гиперболы','',makeGraph('hyper',{k}),opts,opts.indexOf(correct),`Ветви показывают знак k, а точка при x=1 имеет y≈${k}. Поэтому коэффициент равен ${k}: ${correct}.`,'Сначала определите знак k по четвертям, затем оцените значение y при x=1.');
+}
+function genModule(diff){
+ const h=rint(-3,3);
+ if(diff==='easy'){
+  const correct=`y = |x ${h>=0?'−':'+'} ${Math.abs(h)}|`;const opts=shuffle([correct,`y = |x ${h>=0?'+':'−'} ${Math.abs(h)}|`,`y = x ${h>=0?'−':'+'} ${Math.abs(h)}`,`y = −|x ${h>=0?'−':'+'} ${Math.abs(h)}|`]);
+  return taskBase('module','Выберите формулу графика с модулем','',makeGraph('abs',{h}),opts,opts.indexOf(correct),`График |x−h| имеет вершину (h;0). Здесь вершина находится при x=${h}, значит ${correct}.`,'Найдите x-координату вершины «галочки».');
+ }
+ const correct=`x − ${h} при x ≥ ${h}; −x + ${h} при x < ${h}`;const opts=shuffle([correct,`−x + ${h} при x ≥ ${h}; x − ${h} при x < ${h}`,`x + ${h} при x ≥ ${h}; −x − ${h} при x < ${h}`,`x − ${h} для всех x`]);
+ return taskBase('module','Как правильно раскрыть модуль? ',`y = |x ${h>=0?'−':'+'} ${Math.abs(h)}|`,makeGraph('abs',{h}),opts,opts.indexOf(correct),`Для |f(x)| рассматриваем два случая: f(x)≥0 → |f|=f; f(x)<0 → |f|=−f. Для f(x)=x−${h}: при x≥${h} получаем x−${h}, а при x<${h} — −x+${h}.`,'Найдите, при каких x выражение под модулем неотрицательно.');
+}
+function genRead(diff){
+ const kinds=diff==='easy'?['line','quad','hyper']:['line','quad','hyper','abs','sqrt'];const kind=pick(kinds);
+ const graphs={line:makeGraph('line',{k:pick([-1.5,-1,1,1.5]),b:rint(-3,3)}),quad:makeGraph('quad',{a:pick([-1,1]),b:rint(-3,3),c:rint(-3,3)}),hyper:makeGraph('hyper',{k:pick([-4,-2,2,4])}),abs:makeGraph('abs',{h:rint(-2,2)}),sqrt:makeGraph('sqrt',{h:rint(-2,1),v:rint(-2,2)})};
+ const names={line:'линейная функция',quad:'квадратичная функция',hyper:'обратная пропорциональность',abs:'функция с модулем',sqrt:'функция с квадратным корнем'};const opts=shuffle(['линейная функция','квадратичная функция','обратная пропорциональность','функция с модулем','функция с квадратным корнем']);
+ return taskBase('read','Определите вид функции по графику','',graphs[kind],opts,opts.indexOf(names[kind]),`У каждого базового графика есть характерная форма. На рисунке показана ${names[kind]}.`,'Смотрите на форму: прямая, парабола, две ветви гиперболы, V-образный модуль или полувествь корня.');
+}
+function genTask22(diff){
+ if(diff==='easy'){
+  const m=pick([2,3,4,5]);const opts=shuffle([m,0,m+1,p].map(String));
+  return taskBase('task22','При каком значении m прямая y=m имеет с графиком ровно три общие точки?',`y = |x² − ${m}|`,makeGraph('absquad',{m}),opts,opts.indexOf(String(m)),`Рассматриваем y=|x²−${m}|. При 0<m₀<${m} горизонтальная прямая даёт 4 точки, при m₀>${m} — 2 точки. При m₀=${m}: уравнение |x²−${m}|=${m} даёт x=0 и x=±√${2*m}, то есть ровно 3 точки. Ответ: ${m}.`,'Особое значение возникает, когда горизонтальная прямая проходит через верхнюю точку центральной дуги.');
+ }
+ if(diff==='medium'){
+  const h=pick([-2,-1,1,2]);const opts=['2','3','4','Бесконечно много'];
+  return taskBase('task22','Какое наибольшее число общих точек может иметь график с прямой y=m?',`y = |x² ${h>=0?'−':'+'} ${Math.abs(h)}x − 2|`,makeGraph('absquad2',{h}),opts,2,`После взятия модуля отрицательная часть параболы отражается вверх. Горизонтальная прямая в подходящем диапазоне может пересечь четыре ветви графика. Поэтому максимальное число общих точек — 4.`,'Представьте, что часть параболы ниже Ox отражается вверх. Посчитайте возможные пересечения горизонтальной прямой.');
+ }
+ const k=pick([2,3,4]);const correct='0';const opts=shuffle(['0',String(k),String(-k),'Таких значений нет']);
+ return taskBase('task22','При каком k прямая y=kx может не иметь общих точек с данным графиком?',`y = ${k}/|x|`,makeGraph('hyperAbs',{k}),opts,opts.indexOf(correct),`График y=${k}/|x| лежит выше оси Ox. Прямая y=0 — сама ось Ox — не пересекает его. Поэтому k=0 даёт отсутствие общих точек.`,'Проверьте сначала самый простой случай — горизонтальную прямую через начало координат.');
+}
+function generateTask(){const topic=state.topic==='mixed'?pick(topicKeys):state.topic;return ({read:genRead,line:genLine,quadratic:genQuadratic,rational:genRational,module:genModule,task22:genTask22}[topic])(state.difficulty)}
+function newSeries(){state.topic=$('#topicSelect').value;state.difficulty=$('#difficulty').value;state.total=Number($('#seriesCount').value);state.index=0;state.right=0;state.wrong=0;state.streak=0;state.selected=null;state.tasks=Array.from({length:state.total},generateTask);renderTask()}
+function current(){return state.tasks[state.index]}
+function renderTask(){const t=current();state.selected=null;state.attemptsCurrent=t.tries||0;$('#topicBadge').textContent=TOPIC_NAMES[state.topic];$('#diffBadge').textContent=DIFF_NAMES[state.difficulty];$('#taskCounter').textContent=`Задание ${state.index+1} из ${state.total}`;$('#taskKicker').textContent=`${TOPIC_NAMES[t.topic]} • ${DIFF_NAMES[state.difficulty]}`;$('#taskTitle').textContent=t.title;$('#taskFormula').innerHTML=t.formula||'<span style="color:#6b8798;font-family:Inter,Arial,sans-serif;font-size:16px">Работайте по графику</span>';$('#feedback').className='feedback';$('#feedback').textContent='';$('#solution').className='solution';$('#solution').innerHTML='<b>Разбор.</b> '+t.explanation;$('#solutionBtn').disabled=!t.done;$('#checkBtn').disabled=t.done;$('#prevBtn').disabled=state.index===0;$('#options').innerHTML='';$('#inputBox').classList.add('hidden');
+ if(t.input){$('#inputBox').classList.remove('hidden');$('#checkBtn').classList.add('hidden')}else{$('#checkBtn').classList.remove('hidden');t.options.forEach((o,i)=>{const b=document.createElement('button');b.className='option';b.innerHTML=o;b.onclick=()=>{if(t.done)return;state.selected=i;$$('.option').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};$('#options').appendChild(b)})}
+ drawGraph(t.graph);renderStats();renderAssist(t);renderTopicProgress();}
+function check(){const t=current();if(t.done)return;if(state.selected===null){showFeedback('warn','Выберите один из вариантов ответа.');return}t.tries++;const ok=state.selected===t.correct;if(ok){t.done=true;state.right++;state.streak++;record(true,t.topic);showFeedback('ok','Верно! Отличная работа.');markOptions(true);$('#solutionBtn').disabled=false}else{state.wrong++;state.streak=0;record(false,t.topic);if(t.tries>=3){t.done=true;showFeedback('bad',`Три попытки использованы. Правильный ответ: ${t.options[t.correct]}.`);markOptions(false);$('#solutionBtn').disabled=false}else showFeedback('bad',`Пока неверно. Осталось попыток: ${3-t.tries}.`)}renderStats();renderTopicProgress()}
+function markOptions(ok){$$('.option').forEach((b,i)=>{if(i===current().correct)b.classList.add('correct');else if(i===state.selected&&!ok)b.classList.add('wrong')});$('#checkBtn').disabled=true}
+function showFeedback(type,text){const f=$('#feedback');f.className=`feedback show ${type}`;f.textContent=text}
+function prev(){if(state.index>0){state.index--;renderTask()}}
+function next(){if(state.index<state.total-1){state.index++;renderTask()}else{showFeedback('ok',`Серия завершена: ${state.right} верно из ${state.total}. Точность ${Math.round(state.right/state.total*100)}%.`)}}
+function renderStats(){const done=state.tasks.filter(t=>t.done).length;$('#statDone').textContent=done;$('#statRight').textContent=state.right;$('#statWrong').textContent=state.wrong;const checked=state.right+state.wrong;$('#statAccuracy').textContent=checked?Math.round(state.right/checked*100)+'%':'0%';$('#statStreak').textContent=state.streak;$('#seriesProgress').style.width=(done/state.total*100)+'%'}
+function renderAssist(t){const data={read:[['1. Узнайте форму','Определите базовый вид графика.'],['2. Сверьте признаки','Проверьте оси, вершины, ветви.'],['3. Выберите ответ','Сопоставьте с вариантами.']],line:[['1. Наклон','Возрастает или убывает прямая?'],['2. Пересечение с Oy','Это значение b.'],['3. Коэффициент k','Оцените знак и крутизну.']],quadratic:[['1. Ветви','Знак a задаёт направление.'],['2. Пересечения','Ox связан с корнями и D.'],['3. Вершина','x₀=−b/(2a).']],rational:[['1. Четверти','По ним определяем знак k.'],['2. Асимптоты','Для k/x это оси координат.'],['3. Масштаб','Оцените значение при x=1.']],module:[['1. Ноль под модулем','Найдите границу случаев.'],['2. Два случая','f≥0 и f<0.'],['3. Отражение','Отрицательная часть отражается вверх.']],task22:[['1. Упростите функцию','Раскройте модуль или сократите дробь.'],['2. Учтите ОДЗ','Выколотые точки сохраняются.'],['3. Анализ пересечений','Считайте общие точки с прямой.']]};$('#assistList').innerHTML=data[t.topic].map(x=>`<div class="assist-item"><b>${x[0]}</b><p>${x[1]}</p></div>`).join('')}
+function renderTopicProgress(){$('#topicProgress').innerHTML=topicKeys.map(k=>{const s=saved.topics[k]||{attempts:0,right:0};const p=s.attempts?Math.round(s.right/s.attempts*100):0;return `<div class="mini-row"><span>${TOPIC_NAMES[k].replace('ОГЭ №11','№11').replace('ОГЭ №22','№22')}</span><div class="bar"><i style="width:${p}%"></i></div><b>${p}%</b></div>`}).join('')}
+function drawGraph(g){const c=$('#graphCanvas'),ctx=c.getContext('2d'),W=c.width,H=c.height;ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);const xMin=-7,xMax=7,yMin=-7,yMax=7;const X=x=>(x-xMin)/(xMax-xMin)*W,Y=y=>H-(y-yMin)/(yMax-yMin)*H;ctx.lineWidth=1;for(let x=Math.ceil(xMin);x<=xMax;x++){ctx.strokeStyle=x===0?'#46697f':'#e3eef3';ctx.beginPath();ctx.moveTo(X(x),0);ctx.lineTo(X(x),H);ctx.stroke()}for(let y=Math.ceil(yMin);y<=yMax;y++){ctx.strokeStyle=y===0?'#46697f':'#e3eef3';ctx.beginPath();ctx.moveTo(0,Y(y));ctx.lineTo(W,Y(y));ctx.stroke()}ctx.fillStyle='#42657b';ctx.font='18px Segoe UI';ctx.fillText('x',W-18,Y(0)-9);ctx.fillText('y',X(0)+9,20);ctx.font='12px Segoe UI';for(let i=-6;i<=6;i++){if(i!==0){ctx.fillText(i,X(i)+3,Y(0)+15);ctx.fillText(i,X(0)+5,Y(i)-4)}}ctx.strokeStyle='#1688c7';ctx.lineWidth=4;ctx.lineJoin='round';ctx.lineCap='round';
+ const plot=f=>{ctx.beginPath();let started=false;for(let px=0;px<W;px++){const x=xMin+(xMax-xMin)*px/W;let y=f(x);if(!Number.isFinite(y)||y<yMin-5||y>yMax+5){started=false;continue}const py=Y(y);if(!started){ctx.moveTo(px,py);started=true}else ctx.lineTo(px,py)}ctx.stroke()};
+ if(g.kind==='line')plot(x=>g.k*x+g.b);if(g.kind==='quad')plot(x=>g.a*x*x+g.b*x+g.c);if(g.kind==='hyper')plot(x=>Math.abs(x)<.05?NaN:g.k/x);if(g.kind==='abs')plot(x=>Math.abs(x-g.h));if(g.kind==='sqrt')plot(x=>x>=g.h?Math.sqrt(x-g.h)+g.v:NaN);if(g.kind==='absquad')plot(x=>Math.abs(x*x-g.m));if(g.kind==='absquad2')plot(x=>Math.abs(x*x-g.h*x-2));if(g.kind==='hyperAbs')plot(x=>Math.abs(x)<.05?NaN:g.k/Math.abs(x));}
+const theoryData={
+read:{title:'Чтение графиков — ОГЭ №11',html:`<div class="theory-grid"><div class="theory-card"><h3>Что нужно уметь</h3><ul><li>узнавать тип функции по форме графика;</li><li>читать значения f(x), нули, промежутки возрастания и убывания;</li><li>сопоставлять формулу и график;</li><li>определять знаки коэффициентов.</li></ul><div class="callout">В заданиях на соответствие сначала используйте самые заметные признаки: направление ветвей, четверти, пересечение с Oy, вершину.</div></div><div class="theory-card"><h3>Быстрая диагностика</h3><p><b>Прямая:</b> постоянный наклон.</p><p><b>Парабола:</b> U- или ∩-образная форма.</p><p><b>Гипербола:</b> две раздельные ветви.</p><p><b>Модуль:</b> характерный излом или отражённый участок.</p></div></div>`},
+line:{title:'Линейная функция',html:`<div class="theory-grid"><div class="theory-card"><h3>Формула</h3><div class="mathbox">y = kx + b</div><p><b>k</b> — угловой коэффициент: k&gt;0 — функция возрастает, k&lt;0 — убывает.</p><p><b>b</b> — ордината пересечения с осью Oy.</p></div><div class="theory-card"><h3>Алгоритм по графику</h3><ol><li>Смотрите, возрастает или убывает прямая → знак k.</li><li>Смотрите, где прямая пересекает Oy → знак и значение b.</li><li>При необходимости найдите k по двум точкам.</li></ol></div></div>`},
+quadratic:{title:'Квадратичная функция',html:`<div class="theory-grid"><div class="theory-card"><h3>Формула</h3><div class="mathbox">y = ax² + bx + c</div><p>a&gt;0 — ветви вверх; a&lt;0 — ветви вниз. Значение c=f(0), значит его можно читать на оси Oy.</p><div class="mathbox">x₀ = −b / (2a)</div></div><div class="theory-card"><h3>Корни и дискриминант</h3><ul><li>2 пересечения с Ox → D&gt;0;</li><li>касание Ox → D=0;</li><li>пересечений нет → D&lt;0.</li></ul><p>Вершина помогает определить минимум или максимум функции.</p></div></div>`},
+rational:{title:'Дробно-рациональная функция',html:`<div class="theory-grid"><div class="theory-card"><h3>Базовая гипербола</h3><div class="mathbox">y = k/x</div><p>k&gt;0 → ветви в I и III четвертях. k&lt;0 → во II и IV.</p><p>Оси x=0 и y=0 являются асимптотами базовой гиперболы.</p></div><div class="theory-card"><h3>Для задания 22</h3><ol><li>Найдите ОДЗ.</li><li>Сократите выражение, если можно.</li><li>Не забудьте про исключённые значения x — они дают выколотые точки.</li><li>Стройте упрощённый график с учётом этих точек.</li></ol></div></div>`},
+module:{title:'Модуль в графиках',html:`<div class="theory-grid"><div class="theory-card"><h3>Определение</h3><div class="mathbox">|f(x)| = f(x), если f(x) ≥ 0; &nbsp; −f(x), если f(x) &lt; 0</div><p>Чтобы раскрыть модуль, найдите, где подмодульное выражение равно нулю, и разделите числовую прямую на случаи.</p></div><div class="theory-card"><h3>Геометрический смысл</h3><p>Если модуль стоит вокруг всей функции, отрицательная часть графика отражается относительно Ox вверх.</p><p>Если модуль находится внутри выражения, чаще получается кусочно-заданная функция.</p></div></div>`},
+task22:{title:'ОГЭ №22 — построение и анализ',html:`<div class="theory-grid"><div class="theory-card"><h3>Универсальный алгоритм</h3><ol><li>Упростить формулу.</li><li>Раскрыть модуль или разбить на куски.</li><li>Записать ОДЗ и сохранить выколотые точки.</li><li>Построить каждый кусок по ключевым точкам.</li><li>Провести мысленно прямую y=m или y=kx и посчитать пересечения.</li></ol></div><div class="theory-card"><h3>Что часто встречается</h3><ul><li>модуль и квадратичная функция;</li><li>кусочно-заданные функции;</li><li>дробно-рациональные выражения;</li><li>поиск значений параметра по числу общих точек.</li></ul><div class="callout">В задачах с параметром ответ часто получается не из вычисления одной точки, а из анализа всей формы графика.</div></div></div>`}}
+function initTheory(){const nav=$('#theoryNav');nav.innerHTML=Object.entries(theoryData).map(([k,v],i)=>`<button class="pill ${i===0?'active':''}" data-theory="${k}">${v.title.split('—')[0]}</button>`).join('');nav.onclick=e=>{const b=e.target.closest('[data-theory]');if(!b)return;$$('.pill').forEach(x=>x.classList.remove('active'));b.classList.add('active');showTheory(b.dataset.theory)};showTheory('read')}
+function showTheory(k){const d=theoryData[k];$('#theoryContent').innerHTML=`<h2 style="color:var(--navy)">${d.title}</h2>${d.html}<div class="source-note">Теория адаптирована под тренировочный формат ОГЭ и дополнена интерактивными заданиями.</div>`}
+function switchView(v){['trainer','theory','exam','progress'].forEach(x=>$('#'+x+'View').classList.toggle('hidden',x!==v));$$('.menu-btn').forEach(b=>b.classList.toggle('active',b.dataset.view===v));$('#mobileTopic').value=v;$('#trainerControls').classList.toggle('hidden',v!=='trainer');if(v==='progress')renderProgress()}
+function renderProgress(){saved=loadProgress();$('#pAttempts').textContent=saved.attempts||0;$('#pRight').textContent=saved.right||0;$('#pAccuracy').textContent=saved.attempts?Math.round(saved.right/saved.attempts*100)+'%':'0%';$('#pBest').textContent=saved.bestStreak||0;$('#pExams').textContent=(saved.exams||[]).length;const h=$('#historyBody');h.innerHTML=(saved.exams||[]).length?saved.exams.slice().reverse().map(e=>`<tr><td>${e.date}</td><td>${e.right}/${e.total}</td><td>${Math.round(e.right/e.total*100)}%</td><td>${e.time}</td></tr>`).join(''):`<tr><td colspan="4" class="empty">Мини-экзамены ещё не проходились</td></tr>`}
+function startExam(){state.exam=true;state.topic='mixed';state.difficulty='hard';state.total=10;state.index=0;state.right=0;state.wrong=0;state.streak=0;state.tasks=Array.from({length:10},generateTask);switchView('trainer');$('#topicSelect').value='mixed';$('#difficulty').value='hard';$('#seriesCount').value='10';state.examStart=Date.now();let left=15*60;clearInterval(state.timerId);state.timerId=setInterval(()=>{left--;const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');$('#timer').textContent=`${m}:${s}`;if(left<=0){clearInterval(state.timerId);finishExam()}},1000);renderTask()}
+function finishExam(){if(!state.exam)return;state.exam=false;const sec=Math.round((Date.now()-state.examStart)/1000),time=`${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;saved.exams??=[];saved.exams.push({date:new Date().toLocaleDateString('ru-RU'),right:state.right,total:state.total,time});saveProgress();showFeedback('ok',`Мини-экзамен завершён: ${state.right}/${state.total}. Время ${time}. Результат сохранён.`)}
+$$('.menu-btn').forEach(b=>b.onclick=()=>switchView(b.dataset.view));$('#mobileTopic').onchange=e=>switchView(e.target.value);$('#newSeries').onclick=newSeries;$('#checkBtn').onclick=check;$('#prevBtn').onclick=prev;$('#nextBtn').onclick=()=>{if(state.exam&&state.index===state.total-1){finishExam()}else next()};$('#hintBtn').onclick=()=>showFeedback('warn',current().hint);$('#solutionBtn').onclick=()=>$('#solution').classList.toggle('show');$('#startExam').onclick=startExam;$('#resetProgress').onclick=()=>{if(confirm('Сбросить всю сохранённую статистику?')){localStorage.removeItem('graphsTrainerProgress');saved=loadProgress();renderProgress();renderTopicProgress()}};
+$$('.exam-btn').forEach(b=>b.onclick=()=>{const e=b.dataset.exam;$$('.exam-btn').forEach(x=>x.classList.toggle('active',x===b));$('#ogeView').classList.toggle('hidden',e!=='oge');$('#egeView').classList.toggle('hidden',e!=='ege')});
+window.addEventListener('resize',()=>drawGraph(current()?.graph||makeGraph('line',{k:1,b:0})));initTheory();newSeries();
+</script>
+</body></html>
